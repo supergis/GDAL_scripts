@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='ASCII'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Arizona State University</origin>
+        <pubdate>20141023</pubdate>
+        <title>LRO_NAC_DEM_25N311E_2mp.tif</title>
+        <edition>1</edition>
+        <geoform>raster digital data</geoform>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This is a Digital Elevation Model (DEM) extracted from the LROC Narrow Angle Camera (NAC) geometric stereo images from the Lunar Reconnaissance Orbiter mission. The original data product is a DEM from stereo images acquired at approximately 0.5 m/p resolution, and the DEM is set at 2m/p, downsampled to minimize noise. The DEM is controlled to the Lunar Orbiter Laser Altimeter (LOLA) dataset. DEM values referred to a radius of 1737400 meters.</abstract>
+      <purpose>The DEMs are generated from this imagery. High resolution DEMs will be essential for identifying potential landing site hazards, planning the placement of landed assets on the surface, as well as other surface operations. Site-specific DEMs will also serve as a foundation for ortho-projection and control of local/site mosaics. The maps will allow lunar planning tasks in the areas of landing site evaluation and selection, habitat placement, and ensuring hazard identification. Crewmembers will use these maps to distinguish features for landing, surface operations planning, and departure.</purpose>
+      <supplinf>The nodata value for this DEM is -3.40282266e+038.</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20141023</caldate>
+        </sngdate>
+      </timeinfo>
+      <current>Publication date</current>
+    </timeperd>
+    <status>
+      <progress>In work</progress>
+      <update>As needed</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>44.2106025648</westbc>
+        <eastbc>44.4549013593</eastbc>
+        <northbc>46.7915312838</northbc>
+        <southbc>45.8399873549</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt> http://www.lmmp.nasa.gov/redmine/projects/lmmpwiki/wiki/Glossary</themekt>
+        <themekey>Digital Elevation Model</themekey>
+        <themekey>Digital Terrain Model</themekey>
+        <themekey>Lunar Reconnaissance Orbiter</themekey>
+        <themekey>Lunar Reconnaissance Orbiter Camera</themekey>
+        <themekey>Gridded Data Record</themekey>
+        <themekey>Planetary Data System</themekey>
+        <themekey>Lunar Mapping and Modeling Project</themekey>
+        <themekey>LRO</themekey>
+        <themekey>LROC</themekey>
+        <themekey>LMMP</themekey>
+      </theme>
+      <place>
+        <placekt> http://www.lmmp.nasa.gov/redmine/projects/lmmpwiki/wiki/Glossary</placekt>
+        <placekey>The Moon</placekey>
+        <placekey>Earth</placekey>
+      </place>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>None</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>Arizona State University</cntorg>
+          <cntper>Dr. Mark Robinson</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>1100 S. Cady Mall</addrtype>
+          <city>Tempe</city>
+          <state>AZ</state>
+          <postal>85287-3603</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>480-965-8373</cntvoice>
+        <cntemail>robinson@ser.asu.edu</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <browse>
+      <browsen>*_legend.png</browsen>
+      <browsed>legend for elevation values</browsed>
+      <browset>PNG</browset>
+    </browse>
+    <datacred>Lunar Reconnaissance Orbiter Camera (LROC) Team</datacred>
+    <secinfo>
+      <secsys>None</secsys>
+      <secclass>Unclassified</secclass>
+      <sechandl>None</sechandl>
+    </secinfo>
+    <native>ISIS 3.4.x, SOCET SET 5.5 ((R) BAE Systems), GDAL 1.10</native>
+  </idinfo>
+  <dataqual>
+    <logic>For each DEM pixel, a derived confidence value is also assigned in the file named LRO_NAC_Conf_*.tif. The confidence values used to assess the DEM pixels are: &gt; &gt; 0 = NoDATA, outside boundary (e.g. out of stereo pair overlap) &gt; 1 = Shadowed &gt; 2 = Saturated &gt; 3 = Suspicious (edge, corner, did not correlate, etc) &gt; 4 = Interpolated/Extrapolated from neighbor pixels &gt; 10-14 = Value range of successful correlations &gt; 15 = Manually interpolated &gt; The process of DEM extraction by comparing the paired stereo images is never perfect and the resulting DEMs will contain some level of inaccuracies. The random height errors are most obvious in DEMs extracted from low signal-to-noise imagery and tend to give the surface a faceted or exaggerated rough appearance (this is particularly apparent in the shaded reliefs). Localized areas of high noise may result from shadows or other low contrast features. Errors that have more identifiable patterns, unrelated to the image quality, are artifacts of the particular extraction or editing techniques. For example, sections of the DEM that are edited manually, though improved, may still be distinguishable by their smooth texture from the more accurately portrayed natural terrain in other areas (manual edits can also be clearly identified in the confidence maps). Linear artifacts along which the DEM height changes discontinuously by a small amount may also originate from multiple sources in the data processing. For example, such small offsets are commonly seen at the join between data from the two cameras of the LROC-NAC system. Additional rectangular artifacts can be traced to the SOCET SET Next-Generation Automatic Terrain Extraction (NGATE) matching algorithm, which divides the whole DEM into small blocks. For each block, NGATE computes a set of transformation parameters between ground XYZ and image line, sample, and X parallax. The set of parameters are computed based on the sensor model as well as the specific location. As a result, there may be some minor blocking effect (horizontal line and/or vertical line along the block boundaries). Elevation changes across both inter-camera seams and block boundaries should always be less than the expected vertical precision of 1 m. To maintain the maximum scientific integrity of the data and to preserve detail in other areas, no attempt has been made to smooth over these artifacts. To view examples of common matching issues and artifacts please see: https://pub.lmmp.nasa.gov/redmine/attachments/404/Artifacts.pdf</logic>
+    <complete>Where the images contained stereo overlap, elevation values were extracted for the DEM except for when one of the images was in shadow.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>The given horizontal accuracy is the RMS in the X (longitude) and Y (latitude) directions in meters of the final triangulation solution as reported by SOCET SET. The relative horizontal accuracy (pixel to pixel across the DEM) is the same as the spatial resolution of the DEM, which is equivalent to the post spacing (typically 1.5m). The images used in this project were controlled to LOLA tracks that were determined to be self-consistent, but which may not have been included in a crossover solution. The total absolute error results from the combination of the DEM horizontal error and the LOLA track data horizontal error. The minimum absolute RMS accuracy of the crossover corrected LOLA data is estimated at 20m.</horizpar>
+        <qhorizpa>
+          <horizpav>99.9</horizpav>
+          <horizpae>99.9 m represents the LOLA 20m absolute RMS accuracy root summed squared (RSS) with the maximum SOCET SET RMS. 1-5m relative accuracy (same as the DEM pixel spacing).</horizpae>
+        </qhorizpa>
+      </horizpa>
+      <vertacc>
+        <vertaccr>The vertical accuracy measured in SOCET SET. Since the DEM is tied to LOLA, the vertical accuracy is limited by both the absolute vertical RMS accuracy of the LOLA data and the expected vertical precision (the relative precision) of the DEM. The absolute RMS vertical accuracy of the LOLA data is expected to approach 1 meter, but at the time this DEM was created, the vertical RMS accuracy of the LOLA data is estimated at 10m. The relative precision of this DEM is expected to be 1 meter, but can be as large as 2 meters.</vertaccr>
+        <qvertpa>
+          <vertaccv>88.8</vertaccv>
+          <vertacce>88.8 m represents the LOLA 10m absolute RMS vertical accuracy root summed squared with the maximum SOCET SET RMS of 2.9m, 1-5m precision. Absolute accuracy is based on LOLA error estimates. Precision is based on SOCET SET precision and RMS error between LOLA profiles and the DEM.</vertacce>
+        </qvertpa>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Robinson, Mark S. et. al.</origin>
+            <origin>Springer Netherlands, Space Science Reviews Volume 150, Numbers 1-4, 81-124, DOI: 10.1007/s11214-010-9634-2</origin>
+            <pubdate>20100101</pubdate>
+            <title>Lunar Reconnaissance Orbiter Camera (LROC) Instrument Overview</title>
+            <geoform>document</geoform>
+            <onlink> http://dx.doi.org/10.1007/s11214-010-9634-2</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>PDS EDR</typesrc>
+        <srctime>
+          <timeinfo>
+            <rngdates>
+              <begdate>2009</begdate>
+              <enddate>2014</enddate>
+            </rngdates>
+          </timeinfo>
+          <srccurr>ground condition</srccurr>
+        </srctime>
+        <srccitea>LROC NAC</srccitea>
+        <srccontr> http://lroc.sese.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/LROLRC_0001/DOCUMENT/LROCSIS.PDF</srccontr>
+      </srcinfo>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Smith, David E. et. al.</origin>
+            <origin>Solar System Exploration Division, NASA Goddard Space Flight Center, Greenbelt</origin>
+            <pubdate>20080108</pubdate>
+            <title>The Lunar Orbiter Laser Altimeter Investigation on the Lunar Reconnaissance Orbiter Mission</title>
+            <geoform>document</geoform>
+            <onlink> http://lunar.gsfc.nasa.gov/lola/images/smith_lola_ssr09.pdf</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>PDS EDR</typesrc>
+        <srctime>
+          <timeinfo>
+            <rngdates>
+              <begdate>2009</begdate>
+              <enddate>2014</enddate>
+            </rngdates>
+          </timeinfo>
+          <srccurr>ground condition</srccurr>
+        </srctime>
+        <srccitea>LOLA</srccitea>
+        <srccontr> http://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/document/rdrsis.pdf</srccontr>
+      </srcinfo>
+      <procstep>
+        <procdesc>The processing approach to generate DEMs uses both the USGS digital cartographic system Integrated Software for Imagers and Spectrometers (ISIS) and the commercial photogrammetric software SOCET SET (BAE Systems). ISIS provides an end-to-end system for the analysis of digital images and production of image maps. Its stereo capabilities are, however, limited. SOCET SET is tailored to aerial and Earth-orbital imagery but provides a complete workflow with modules for bundle adjustment (MST), automatic stereomatching (ATE), and interactive quality control/editing of DTMs with stereo viewing (ITE). Our processing approach for LROC stereo datasets has been to use ISIS to ingest images in an archival format, decompress them as necessary, and perform instrument-specific radiometric calibration. Software written in ISIS is used to translate the image and, more importantly, orientation parameters and other metadata, to the formats understood by SOCET SET. The commercial system is then used for "three-dimensional" processing: bundle-adjustment (including measurement of needed control points), DTM generation, and DTM editing. Final steps such as orthrectification and mosaicking of images can be performed either in SOCET SET or in ISIS after exporting the DTM data. Finally, the Geospatial Data Abstraction Library (GDAL) tools were used to convert the final products to GeoTIFF. &gt; LROC Images used: [IMAGES]</procdesc>
+        <procdate>20110830</procdate>
+        <proccont>
+          <cntinfo>
+            <cntorgp>
+              <cntorg>Arizona State University</cntorg>
+              <cntper>Dr. Mark Robinson</cntper>
+            </cntorgp>
+            <cntaddr>
+              <addrtype>1100 S. Cady Mall</addrtype>
+              <city>Tempe</city>
+              <state>AZ</state>
+              <postal>85287-3603</postal>
+              <country>USA</country>
+            </cntaddr>
+            <cntvoice>480-965-8373</cntvoice>
+            <cntemail>robinson@ser.asu.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Raster</direct>
+    <rastinfo>
+      <rasttype>Pixel</rasttype>
+      <rowcount>14427</rowcount>
+      <colcount>14427</colcount>
+      <vrtcount>1</vrtcount>
+    </rastinfo>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Equirectangular</mapprojn>
+          <equirect>
+            <stdparll>46.0</stdparll>
+            <longcm>180.0</longcm>
+            <feast>0.0</feast>
+            <fnorth>0.0</fnorth>
+          </equirect>
+        </mapproj>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>
+            <absres>2.0</absres>
+            <ordres>2.0</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+    </horizsys>
+    <vertdef>
+      <altsys>
+        <altdatum>Moon 2000</altdatum>
+        <altres>1</altres>
+        <altunits>Meters</altunits>
+        <altenc>Explicit elevation coordinate included with horizontal coordinates</altenc>
+      </altsys>
+    </vertdef>
+  </spref>
+  <eainfo>
+    <overview>
+      <eaover>Height (Elevation m) = DN; Planetary Radius = DN + 1737400m</eaover>
+      <eadetcit>Archinal, B. A., et al., (2011). Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2009, Cel. Mech. and Dyn. Ast., 109, no. 2, 101, DOI 10.1007/s10569-010-9320-4. URL: http://www.springerlink.com/content/g272325h45517581/</eadetcit>
+    </overview>
+  </eainfo>
+  <metainfo>
+    <metd>20141023</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>Arizona State University</cntorg>
+          <cntper>Dr. Mark Robinson</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>1100 S. Cady Mall</addrtype>
+          <city>Tempe</city>
+          <state>AZ</state>
+          <postal>85287-3603</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>480-965-8373</cntvoice>
+        <cntemail>robinson@ser.asu.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>
