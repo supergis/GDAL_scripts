@@ -116,12 +116,9 @@ def main( argv = None ):
 
     if argv is None:
         argv = sys.argv
-
     argv = gdal.GeneralCmdLineProcessor( argv )
-
     if argv is None:
         return 1
-
     nArgc = len(argv)
 
 #/* -------------------------------------------------------------------- */
@@ -456,9 +453,9 @@ def main( argv = None ):
              kmres = adfGeoTransform[1] * (semiMajor * math.pi / 180.0) / 1000.0
         else:
             #convert m/pixel to pixel/degree
-             mapres = 1 / (adfGeoTransform[1] / (semiMajor * 1000.0 * math.pi / 180.0))
-             lonres = adfGeoTransform[1] / (semiMajor * 1000.0 * math.pi / 180.0)
-             latres = adfGeoTransform[5] / (semiMajor * 1000.0 * math.pi / 180.0)
+             mapres = 1 / (adfGeoTransform[1] / (semiMajor * math.pi / 180.0))
+             lonres = adfGeoTransform[1] / (semiMajor * math.pi / 180.0)
+             latres = adfGeoTransform[5] / (semiMajor * math.pi / 180.0)
              xres = adfGeoTransform[1]
              yres = adfGeoTransform[5]
              kmres = adfGeoTransform[1] / 1000.0
@@ -609,16 +606,6 @@ def main( argv = None ):
         for iBand in range(hDataset.RasterCount):
 
                 hBand = hDataset.GetRasterBand(iBand+1 )
-
-                #if( bSample )
-                #{
-                #    float afSample[10000];
-                #    int   nCount;
-                #
-                #    nCount = GDALGetRandomRasterSample( hBand, 10000, afSample );
-                #    print( "Got %d samples.\n", nCount );
-                #}
-
                 (nBlockXSize, nBlockYSize) = hBand.GetBlockSize()
                 print( "Band %d Block=%dx%d Type=%s, ColorInterp=%s" % ( iBand+1, \
                                 nBlockXSize, nBlockYSize, \
@@ -927,97 +914,13 @@ def main( argv = None ):
 #/************************************************************************/
     for rasttype in tree.getiterator('rasttype'):
         rasttype.text = "Pixel"
-    #~ instrList = pszFilename.split("_")
     hBand = hDataset.GetRasterBand( 1 )
-    #~ #get the datatype
-    #~ if EQUAL(gdal.GetDataTypeName(hBand.DataType), "Float32"):
-        #~ sample_bits = 32
-        #~ sample_type = "PC_REAL"
-        #~ sample_mask = "2#11111111111111111111111111111111#"
-    #~ elif EQUAL(gdal.GetDataTypeName(hBand.DataType), "INT16"):
-        #~ sample_bits = 16
-        #~ sample_type = "LSB_INTEGER"
-        #~ sample_mask = "2#1111111111111111#"
-    #~ elif EQUAL(gdal.GetDataTypeName(hBand.DataType), "UINT16"):
-        #~ sample_bits = 16
-        #~ sample_type = "UNSIGNED_INTEGER"
-        #~ sample_mask = "2#1111111111111111#"
-    #~ elif EQUAL(gdal.GetDataTypeName(hBand.DataType), "Byte"):
-        #~ sample_bits = 8
-        #~ sample_type = "UNSIGNED_INTEGER"
-        #~ sample_mask = "2#11111111#"
-    #~ else:
-        #~ print( "  %s: Not supported pixel type" % gdal.GetDataTypeName(hBand.DataType))
-        #~ sys.exit(1)
-
-    #~ f.write('PDS_VERSION_ID            = PDS3\n')
-    #~ f.write('\n')
-    #~ f.write('/* The source image data definition. */\n')
-    #~ f.write('FILE_NAME      = \"%s\"\n' % (dst_img))
-    #~ f.write('RECORD_TYPE   = FIXED_LENGTH\n')
-    #~ f.write('RECORD_BYTES  = %d\n' % (hDataset.RasterYSize))
-    #~ f.write('FILE_RECORDS  = %d\n' % ((hDataset.RasterXSize * sample_bits / 8)) )
-    #~ #f.write('LABEL_RECORDS = 1\n')
-    #~ f.write('^IMAGE        = \"%s\"\n' % (dst_img))
-    #~ f.write('\n')
-    #~ f.write('/* Identification Information  */\n')
-    #~ f.write('DATA_SET_ID               = "%s"\n' % pszFilename.split(".")[0])
-    #~ f.write('DATA_SET_NAME             = "%s"\n' % pszFilename.split(".")[0])
-    #~ f.write('PRODUCER_INSTITUTION_NAME = "Lunar Mapping and Modeling Project"\n')
-    #~ f.write('PRODUCER_ID               = "LMMP_TEAM"\n')
-    #~ f.write('PRODUCER_FULL_NAME        = "LMMP TEAM"\n')
-    #~ f.write('PRODUCT_ID                = "%s"\n' % pszFilename.split(".")[0])
-    #~ if "_v" in pszFilename:
-        #~ f.write('PRODUCT_VERSION_ID        = "%s.0"\n' % instrList[-1].split(".")[0].upper())
-    #~ else:
-        #~ f.write('PRODUCT_VERSION_ID        = "%s"\n' % "V1.0")
-    #~ f.write('PRODUCT_TYPE              = "RDR"\n')
-    #~ f.write('INSTRUMENT_HOST_NAME      = "%s"\n' % instrList[0])
-    #~ f.write('INSTRUMENT_HOST_ID        = "%s"\n' % instrList[0])
-    #~ f.write('INSTRUMENT_NAME           = "%s"\n' % instrList[1])
-    #~ f.write('INSTRUMENT_ID             = "%s"\n' % instrList[1])
-    #~ f.write('TARGET_NAME               = MOON\n')
     for ellips in tree.getiterator('ellips'):
         ellips.text = target
-    #~ f.write('MISSION_PHASE_NAME        = "POST MISSION"\n')
-    #~ f.write('RATIONALE_DESC            = "Created at the request of NASA\'s Exploration\n')
-    #~ f.write('                            Systems Mission Directorate to support future\n')
-    #~ f.write('                            human exploration"\n')
-    #~ f.write('SOFTWARE_NAME             = "ISIS 3.2.1 | SOCET SET v5.5 (r) BAE Systems\n')
-    #~ f.write('                            | GDAL 1.8"\n')
-    #~ f.write('\n')
-    #~ f.write('/* Time Parameters */\n')
-    #~ f.write('START_TIME                   = "N/A"\n')
-    #~ f.write('STOP_TIME                    = "N/A"\n')
-    #~ f.write('SPACECRAFT_CLOCK_START_COUNT = "N/A"\n')
-    #~ f.write('SPACECRAFT_CLOCK_STOP_COUNT  = "N/A"\n')
-    #~ f.write('PRODUCT_CREATION_TIME        = %s\n' % strftime("%Y-%m-%dT%H:%M:%S"))   #2011-03-11T22:13:40
-    #~ f.write('\n')
-    #~ f.write('OBJECT = IMAGE_MAP_PROJECTION\n')
-    #~ f.write('    ^DATA_SET_MAP_PROJECTION     = "DSMAP.CAT"\n')
-    #~ f.write('    MAP_PROJECTION_TYPE          = \"%s\"\n' % mapProjection)
-    #~ f.write('    PROJECTION_LATITUDE_TYPE     = PLANETOCENTRIC\n')
-    #~ f.write('    A_AXIS_RADIUS                = %.1f <KM>\n' % semiMajor)
     for semiaxis in tree.getiterator('semiaxis'):
         semiaxis.text = str(semiMajor)
-    #~ f.write('    B_AXIS_RADIUS                = %.1f <KM>\n' % semiMajor)
-    #~ f.write('    C_AXIS_RADIUS                = %.1f <KM>\n' % semiMinor)
     for denflat in tree.getiterator('denflat'):
         denflat.text = str(invFlat)
-    #~ f.write('    COORDINATE_SYSTEM_NAME       = PLANETOCENTRIC\n')
-    #~ f.write('    POSITIVE_LONGITUDE_DIRECTION = EAST\n')
-    #~ f.write('    KEYWORD_LATITUDE_TYPE        = PLANETOCENTRIC\n')
-    #~ f.write('    /* NOTE:  CENTER_LATITUDE and CENTER_LONGITUDE describe the location   */\n')
-    #~ f.write('    /* of the center of projection, which is not necessarily equal to the  */\n')
-    #~ f.write('    /* location of the center point of the image.                          */\n')
-    #~ f.write('    CENTER_LATITUDE              = %5.2f <DEG>\n' % centLat)
-    #~ f.write('    CENTER_LONGITUDE             = %5.2f <DEG>\n' % centLon)
-    #~ f.write('    LINE_FIRST_PIXEL             = 1\n')
-    #~ f.write('    LINE_LAST_PIXEL              = %d\n' % hDataset.RasterYSize)
-    #~ f.write('    SAMPLE_FIRST_PIXEL           = 1\n')
-    #~ f.write('    SAMPLE_LAST_PIXEL            = %d\n' % hDataset.RasterXSize)
-    #~ f.write('    MAP_PROJECTION_ROTATION      = 0.0 <DEG>\n')
-    #~ f.write('    MAP_RESOLUTION               = %.4f <PIX/DEG>\n' % mapres )
     if (pszProjection[0:6] == "GEOGCS"):
         for latSize in tree.getiterator('latres'):
             latSize.text = str(latres)
@@ -1036,66 +939,20 @@ def main( argv = None ):
             ordres.text = str(abs(yres))
         for plandu in tree.getiterator('plandu'):
             plandu.text = "meters"
-    #~ f.write('    MINIMUM_LATITUDE             = %.8f <DEGREE>\n' % lry)
     for southbc in tree.getiterator('southbc'):
         southbc.text = str(lry)
-    #~ f.write('    MAXIMUM_LATITUDE             = %.8f <DEGREE>\n' % uly)
     for northbc in tree.getiterator('northbc'):
         northbc.text = str(uly)
-    #~ f.write('    WESTERNMOST_LONGITUDE        = %.8f <DEGREE>\n' % ulx)
     for westbc in tree.getiterator('westbc'):
         westbc.text = str(ulx)
-    #~ f.write('    EASTERNMOST_LONGITUDE        = %.8f <DEGREE>\n' % lrx)
     for eastbc in tree.getiterator('eastbc'):
         eastbc.text = str(lrx)
-    #~ f.write('    LINE_PROJECTION_OFFSET       = %.1f\n' % ( (ulx / kmres * 1000 ) - 0.5 ))
-    #~ f.write('    SAMPLE_PROJECTION_OFFSET     = %.1f\n' % ( (uly / kmres * 1000 ) + 0.5 ))
-    #~ f.write('END_OBJECT = IMAGE_MAP_PROJECTION\n')
-    #~ f.write('\n')
-    #~ f.write('OBJECT = IMAGE\n')
-    #~ f.write('    NAME                       = \"%s\"\n' % (pszFilename))
-    #~ f.write('    DESCRIPTION                = "Export data set from LMMP portal.\n')
-    #~ f.write('                                 see filename for data type."\n')
-    #~ #f.write('\n')
-    #~ f.write('    LINES                      = %d\n' % hDataset.RasterYSize)
     for rowcount in tree.getiterator('rowcount'):
         rowcount.text = str(hDataset.RasterYSize)
-    #~ f.write('    LINE_SAMPLES               = %d\n' % hDataset.RasterXSize)
     for colcount in tree.getiterator('colcount'):
         colcount.text = str(hDataset.RasterYSize)
-    #~ f.write('    UNIT                       = METER\n')
-    #~ f.write('    OFFSET                     = %.10g\n' % ( hBand.GetOffset() ))
-    #~ f.write('    SCALING_FACTOR             = %.10g\n' % ( hBand.GetScale() ))
-    #~ f.write('    SAMPLE_TYPE                = %s\n' % (sample_type) )
-    #~ f.write('    SAMPLE_BITS                = %d\n' % (sample_bits) )
-    #~ f.write('    SAMPLE_BIT_MASK            = %s\n' % (sample_mask) )
-    #~ #f.write('\n')
-    #~ f.write('    BANDS                      = %d\n' % hDataset.RasterCount)
     for vrtcount in tree.getiterator('vrtcount'):
         vrtcount.text = str(hDataset.RasterCount)
-    #~ #f.write('\n')
-    #~ f.write('    BAND_STORAGE_TYPE          = BAND_SEQUENTIAL\n')
-    #~ if (sample_bits == 32) :
-        #~ f.write('    CORE_NULL                  = 16#FF7FFFFB#\n')
-        #~ f.write('    CORE_LOW_REPR_SATURATION   = 16#FF7FFFFC#\n')
-        #~ f.write('    CORE_LOW_INSTR_SATURATION  = 16#FF7FFFFD#\n')
-        #~ f.write('    CORE_HIGH_REPR_SATURATION  = 16#FF7FFFFF#\n')
-        #~ f.write('    CORE_HIGH_INSTR_SATURATION = 16#FF7FFFFE#\n')
-    #~ elif (sample_bits == 16) :
-        #~ f.write('    CORE_NULL                  = -32768\n')
-        #~ f.write('    CORE_LOW_REPR_SATURATION   = -32767\n')
-        #~ f.write('    CORE_LOW_INSTR_SATURATION  = -32766\n')
-        #~ f.write('    CORE_HIGH_REPR_SATURATION  = 32767\n')
-        #~ f.write('    CORE_HIGH_INSTR_SATURATION = 32768\n')
-    #~ else : #8bit
-        #~ f.write('    CORE_NULL                  = 0\n')
-        #~ f.write('    CORE_LOW_REPR_SATURATION   = 0\n')
-        #~ f.write('    CORE_LOW_INSTR_SATURATION  = 0\n')
-        #~ f.write('    CORE_HIGH_REPR_SATURATION  = 255\n')
-        #~ f.write('    CORE_HIGH_INSTR_SATURATION = 255\n')
-    #~ f.write('END_OBJECT = IMAGE\n')
-    #~ f.write('END\n')
-    #~ f.close()
     for metstdn in tree.getiterator('metstdn'):
         metstdn.text = "FGDC Content Standards for Digital Geospatial Metadata"
     for metstdv in tree.getiterator('metstdv'):
