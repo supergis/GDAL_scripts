@@ -100,12 +100,29 @@ def main( argv = None ):
     base = None
     multiplier = None
 
+    #/* Must process GDAL_SKIP before GDALAllRegister(), but we can't call */
+    #/* GDALGeneralCmdLineProcessor before it needs the drivers to be registered */
+    #/* for the --format or --formats options */
+    #for( i = 1; i < argc; i++ )
+    #{
+    #    if EQUAL(argv[i],"--config") and i + 2 < argc and EQUAL(argv[i + 1], "GDAL_SKIP"):
+    #    {
+    #        CPLSetConfigOption( argv[i+1], argv[i+2] );
+    #
+    #        i += 2;
+    #    }
+    #}
+    #
+    #GDALAllRegister();
 
     if argv is None:
         argv = sys.argv
+
     argv = gdal.GeneralCmdLineProcessor( argv )
+
     if argv is None:
         return 1
+
     nArgc = len(argv)
 
 #/* -------------------------------------------------------------------- */
@@ -113,6 +130,7 @@ def main( argv = None ):
 #/* -------------------------------------------------------------------- */
     i = 1
     while i < nArgc:
+
         if EQUAL(argv[i], "--utility_version"):
             print("%s is running against GDAL %s" %
                    (argv[0], gdal.VersionInfo("RELEASE_NAME")))
@@ -487,6 +505,15 @@ def main( argv = None ):
 
                 hBand = hDataset.GetRasterBand(iBand+1 )
 
+                #if( bSample )
+                #{
+                #    float afSample[10000];
+                #    int   nCount;
+                #
+                #    nCount = GDALGetRandomRasterSample( hBand, 10000, afSample );
+                #    print( "Got %d samples.\n", nCount );
+                #}
+
                 (nBlockXSize, nBlockYSize) = hBand.GetBlockSize()
                 print( "Band %d Block=%dx%d Type=%s, ColorInterp=%s" % ( iBand+1, \
                                 nBlockXSize, nBlockYSize, \
@@ -732,12 +759,20 @@ def main( argv = None ):
     f.write('      ByteOrder  = Lsb\n')
     if base is None: 
         f.write('      Base       = %.10g\n' % ( hBand.GetOffset() ))
+        if (hBand.GetOffset() <> 0):
+            print("Warning: a none 0 'base' was set but input is 32bit Float. ISIS will not use this value when type is REAL. Please use 'fx' to apply this base value: #.10g" % ( hBand.GetOffset() ))
     else:
         f.write('      Base       = %.10g\n' % base )
+        if EQUAL(sample_type, "REAL"):
+            print("Warning: '-base' was set but input is 32bit Float. ISIS will not use this value when type is REAL. Please use 'fx' to apply this base value.")
     if multiplier is None: 
         f.write('      Multiplier = %.10g\n' % ( hBand.GetScale() ))
+        if (hBand.GetScale() <> 1):
+            print("Warning: a none 1 'multiplier' was set but input is 32bit Float. ISIS will not use this value when type is REAL. Please use 'fx' to apply this multiplier value: #.10g" % ( hBand.GetScale() ))
     else:
         f.write('      Multiplier = %.10g\n' % multiplier )
+        if EQUAL(sample_type, "REAL"):
+            print("Warning: '-multiplier' was set but input is 32bit Float. ISIS will not use this value when type is REAL. Please use 'fx' to apply this multiplier value.")
     f.write('    End_Group\n')
     f.write('  End_Object\n')
     f.write('\n')
