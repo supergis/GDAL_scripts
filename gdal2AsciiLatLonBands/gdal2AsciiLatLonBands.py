@@ -3,7 +3,7 @@
 # $Id: gdal2AsciiLatLonBands.py 1 2014-10-17 
 #
 # Project:  GDAL
-# Purpose:  Script to translate GDAL supported raster into Ascii  (Band n,Lat,Lon)
+# Purpose:  Script to translate GDAL supported raster into Ascii (Lat, Lon, Band n)
 # Author:   thare@usgs.gov, Trent Hare
 #           based on GDAL samples from GDAL and python samples
 #           http://svn.osgeo.org/gdal/trunk/gdal/swig/python/samples/
@@ -40,9 +40,9 @@ import sys
 # =============================================================================
 # If more than one band is sent, then last band will be sent to output
 def Usage():
-    print('Usage: gdal2BandLatLon.py [-srcwin xoff yoff width height]')
-    print('   [-band n] [-addheader] [-printLatLon] [-printXY] srcfile [dstfile]')
-    print('--Only send one band number, defaults to band 1 if nothing is sent')
+    print('Usage: gdal2AsciiLatLonBands.py [-srcwin xoff yoff width height]')
+    print('   [-band 1] [-band 2] [-band n] [-addheader] [-printLatLon] [-printXY] srcfile [dstfile]')
+    print('--defaults to band 1 if nothing is sent')
     print('--Srcwin offsets, width, and height values should be sent in meters')
     print('')
     sys.exit( 1 )
@@ -60,9 +60,6 @@ if __name__ == '__main__':
     dstfile = None
     addheader=False
     band_nums = []
-    delim = ' '
-    format = 'GTiff'
-    type = GDT_Float32
     LatLon = True
     printLatLon=False
     printXY=False
@@ -139,9 +136,6 @@ if __name__ == '__main__':
     # Collect information on all the source files.
     if srcwin is None:
         srcwin = (0,0,srcdata.RasterXSize,srcdata.RasterYSize)
-
-    #define output format as 32bit Tiff, name, size, type and set projection
-    out_driver = gdal.GetDriverByName(format)
 
     # Open the output file.
     if dstfile is not None:
