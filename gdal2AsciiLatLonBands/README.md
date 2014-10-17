@@ -12,19 +12,19 @@ Use one or none for
 Here are some use cases:
 
 % gdal2AsciiLatLonBands.py -addheader -printYX  input.cub
-creates "Y, X, Band1" to stdout with header line
+--creates "Y, X, Band1" to stdout with header line
 
 % gdal2AsciiLatLonBands.py -addheader -printYX  input.cub out.csv
-creates "Y, X, Band1" to out.csv with header line
+--creates "Y, X, Band1" to out.csv with header line
 
 % gdal2AsciiLatLonBands.py input.cub
-creates "Band1" listing to stdout
+--creates "Band1" listing to stdout
 
 % gdal2AsciiLatLonBands.py  -addheader -printLatLon  input.cub out.csv
-creates "Lat, Lon, Band1" to out.csv with header line
+--creates "Lat, Lon, Band1" to out.csv with header line
 
 % gdal2AsciiLatLonBands.py -addheader -printYX -band 1 -band 2 -band 3 input.cub out.csv
-creates "Y, X, Band1, Band2, Band3" to out.csv with header line
+--creates "Y, X, Band1, Band2, Band3" to out.csv with header line
 
 % gdal2AsciiLatLonBands.py -addheader -band 4 -band 1 input.cub out.xyz
-creates "Y, X, Band4, Band1" to out.csv with header line
+--creates "Y, X, Band4, Band1" to out.csv with header line
