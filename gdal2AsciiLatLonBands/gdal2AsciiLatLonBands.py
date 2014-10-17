@@ -41,7 +41,7 @@ import sys
 # If more than one band is sent, then last band will be sent to output
 def Usage():
     print('Usage: gdal2AsciiLatLonBands.py [-srcwin xoff yoff width height]')
-    print('   [-band 1] [-band 2] [-band n] [-addheader] [-printLatLon] [-printXY] srcfile [dstfile]')
+    print('   [-band 1] [-band 2] [-band n] [-addheader] [-printLatLon] [-printYX] srcfile [dstfile]')
     print('--defaults to band 1 if nothing is sent')
     print('--Srcwin offsets, width, and height values should be sent in meters')
     print('')
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     band_nums = []
     LatLon = True
     printLatLon=False
-    printXY=False
+    printYX=False
 
     gdal.AllRegister()
     argv = gdal.GeneralCmdLineProcessor( sys.argv )
@@ -85,8 +85,8 @@ if __name__ == '__main__':
         elif arg == '-printLatLon':
             printLatLon = True
             LatLon = True
-        elif arg == '-printXY':
-            printXY = True
+        elif arg == '-printYX':
+            printYX = True
         elif arg[0] == '-':
             Usage()
         elif srcfile is None:
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     if addheader:
         if printLatLon:
             dst_fh.write( "Lat,Lon," )
-        if printXY:
+        if printYX:
             dst_fh.write( "Y,X," )
         cnt = 1
         bStr = ""
@@ -157,7 +157,7 @@ if __name__ == '__main__':
         dst_fh.write( "%s\n" % (bStr) )
 
     band_format = ("%g," * len(bands)).rstrip(',') + '\n'
-    if (printLatLon or printXY):
+    if (printLatLon or printYX):
        lformat = '%.6f,%.6f,%s'
     else:
        lformat = '%s'
@@ -194,7 +194,7 @@ if __name__ == '__main__':
             #simple sphere method. Needs to be changed for ellipse
             #only supports single bands!!!
             if (abs(x_i_data[0]) < 1.0E12):
-               if (printLatLon or printXY):
+               if (printLatLon or printYX):
                    line = lformat % (float(geo_y),float(geo_x), band_str)
                else:
                    line = lformat % (band_str)
