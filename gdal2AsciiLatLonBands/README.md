@@ -6,10 +6,11 @@ Usage: gdal2AsciiLatLonBands.py [-srcwin xoff yoff width height] [-band 1] [-ban
 * Srcwin offsets, width, and height values should be sent in meters
 
 -addheader will add a one row with field names (although bands are just numbered).
+
 Use one or none for
 
- -printLatLon will use GDAL/map projection to calculate Lat/Lon for every pixel
- -printYX will write out Y,X in meters for every pixel 
+ * printLatLon will use GDAL/map projection to calculate Lat/Lon for every pixel
+ * printYX will write out Y,X in meters for every pixel 
 
 Here are some use cases:
 
