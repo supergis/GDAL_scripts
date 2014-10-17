@@ -1,4 +1,4 @@
 GDAL_scripts
 ============
 
-GDAL scripts generall written in Python
+GDAL scripts generally written in Python
