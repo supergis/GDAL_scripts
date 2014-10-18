@@ -4,6 +4,7 @@
 #
 # Project:  GDAL
 # Purpose:  Script to translate GDAL supported raster into Ascii (Lat, Lon, Band n)
+#                 or (Y, X, Band 1, Band 2, Band n)
 # Author:   thare@usgs.gov, Trent Hare
 #           based on GDAL samples from GDAL and python samples
 #           http://svn.osgeo.org/gdal/trunk/gdal/swig/python/samples/
@@ -43,7 +44,7 @@ def Usage():
     print('Usage: gdal2AsciiLatLonBands.py [-srcwin xoff yoff width height]')
     print('   [-band 1] [-band 2] [-band n] [-addheader] [-printLatLon] [-printYX] srcfile [dstfile]')
     print('--defaults to band 1 if nothing is sent')
-    print('--Srcwin offsets, width, and height values should be sent in meters')
+    print('--srcwin offsets, width, and height values should be sent in meters')
     print('')
     sys.exit( 1 )
 
@@ -165,17 +166,16 @@ if __name__ == '__main__':
     #loop over lines 
     for y in range(srcwin[1],srcwin[1]+srcwin[3],skip):
 
+        #for each line, grab all bands requested into numpy array
         data = []
         for band in bands:
-            band_data = band.ReadAsArray( srcwin[0], y, srcwin[2], 1 )
+            band_data = band.ReadAsArray(srcwin[0], y, srcwin[2], skip)
             band_data = np.reshape( band_data, (srcwin[2],) )
             data.append(band_data)
 
         #Loop over samples (X)
         for x_i in range(0,srcwin[2],skip):
-
             x = x_i + srcwin[0]
-
             geo_x = geomatrix[0] + (x+0.5) * geomatrix[1] + (y+0.5) * geomatrix[2]
             geo_y = geomatrix[3] + (x+0.5) * geomatrix[4] + (y+0.5) * geomatrix[5]
 
@@ -190,13 +190,11 @@ if __name__ == '__main__':
             if printLatLon:
                 (geo_x, geo_y, height) = coordtransform.TransformPoint(geo_x, geo_y)
 
-            #convert lat/lon to Y/X in geocentric space CRS then write out X,Y,Z
-            #simple sphere method. Needs to be changed for ellipse
-            #only supports single bands!!!
+            #write out line to output. 
+            #The check here for large values can be removed.
             if (abs(x_i_data[0]) < 1.0E12):
                if (printLatLon or printYX):
                    line = lformat % (float(geo_y),float(geo_x), band_str)
                else:
                    line = lformat % (band_str)
                dst_fh.write( line )
-
