@@ -39,7 +39,6 @@ import sys
 
 
 # =============================================================================
-# If more than one band is sent, then last band will be sent to output
 def Usage():
     print('Usage: gdal2AsciiLatLonBands.py [-srcwin xoff yoff width height]')
     print('   [-band 1] [-band 2] [-band n] [-addheader] [-printLatLon] [-printYX] srcfile [dstfile]')
@@ -49,10 +48,7 @@ def Usage():
     sys.exit( 1 )
 
 # =============================================================================
-#
 # Program mainline.
-#
-
 if __name__ == '__main__':
 
     srcwin = None
@@ -103,15 +99,15 @@ if __name__ == '__main__':
 
     stcdata = gdal.Open( srcfile, GA_ReadOnly )
 
-    if band_nums == []: band_nums = [1]
-
     # Open source file. 
     srcdata = gdal.Open( srcfile )
     if srcdata is None:
         print('Could not open %s.' % srcfile)
         sys.exit( 1 )
 
+    if band_nums == []: band_nums = [1]
     bands = []
+    #Check to make sure bands are available
     for band_num in band_nums: 
         band = srcdata.GetRasterBand(band_num)
         if band is None:
@@ -127,8 +123,7 @@ if __name__ == '__main__':
         #LatLon = True
 
     geomatrix = srcdata.GetGeoTransform()
-    # Build Spatial Reference object based on coordinate system, fetched from the
-    # opened dataset
+    # Build Spatial Reference object based on coordinate system
     srs = osr.SpatialReference()
     srs.ImportFromWkt(srcdata.GetProjection())
     srsLatLong = srs.CloneGeogCS()
@@ -157,6 +152,7 @@ if __name__ == '__main__':
         bStr = bStr.rstrip(',')
         dst_fh.write( "%s\n" % (bStr) )
 
+    #define the different string formatting methods
     band_format = ("%g," * len(bands)).rstrip(',') + '\n'
     if (printLatLon or printYX):
        lformat = '%.6f,%.6f,%s'
