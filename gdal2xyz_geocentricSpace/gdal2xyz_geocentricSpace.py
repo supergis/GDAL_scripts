@@ -187,8 +187,8 @@ if __name__ == '__main__':
         dst_fh = sys.stdout
 
     if addheader:
-        if LatLon:
-            dst_fh.write( "Lon,Lat,Height\n" )
+        if printLatLon:
+            dst_fh.write( "Lon,Lat,Band\n" )
         else:
             dst_fh.write( "X,Y,Radius\n" )
             
