@@ -1,8 +1,10 @@
 Usage: gdal2xyz_geocentricSpace.py [-skip factor] [-printLatLon] [-addheader] [-srcwin xoff yoff width height]
-     [-radius value_m or -radiusBand n] [-latBand n] [-lonBand n] [-band b] srcfile [dstfile]
+                      [-radius value_m or -radiusBand n] [-latBand n] [-lonBand n] [-band b] srcfile [dstfile]
 
-Note: if no radius or radiusBand is sent, the radius will default to the Moon = 1737400.0
-
+* Note: Was written for digital elevation files (DEMs), thus band 1 or -band b, should be elevation in meters
+* Note: if no radius is sent, the radius will default to the Moon = 1737400.0
+* Note: if variable radius is available as a band, then you can send -radiusBand b 
+    
 * brackets [ ] indicate optional parameter. If no output file, will write to stdout
 * defaults to band 1 if nothing is sent (only applicable when using -printLatLon)
 * -srcwin offsets, width, and height values should be sent in meters

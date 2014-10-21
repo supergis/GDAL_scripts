@@ -3,10 +3,10 @@
 # $Id: gdal2xyz_geocentricSpace.py 2014-10-21
 #
 # Project:  GDAL
-# Purpose:  Script to translate GDAL supported raster into XYZ ASCII
-#           using a geocentric space coordinate system, also known as body-fixed coordinates
-#           defaults to Moon radius
-# Author:   Frank Warmerdam, warmerdam@pobox.com
+# Purpose:  Script to translate GDAL supported raster (specifically a elevation DEM)
+#           into a geocentric (body-fixed) XYZ ASCII table.
+#           Defaults to Moon radius and DEM elevation values should in meters
+# Author:   Frank Warmerdam, warmerdam@pobox.com, original gdal2xyz version
 # update:   Trent Hare, Jan 31, 2011 to convert to space coordinates - only use degs
 # update:   Trent Hare, Feb 1, 2011 now supports any GDAL meter projection as input
 # update:   Trent Hare, Oct 21, 2014 now supports Lat/Lon from Bands
@@ -54,7 +54,9 @@ except ImportError:
 def Usage():
     print 'Usage: gdal2xyz_geocentricSpace.py [-skip factor] [-printLatLon] [-addheader] [-srcwin xoff yoff width height]'
     print '     [-radius value_m or -radiusBand n] [-latBand n] [-lonBand n] [-band b] srcfile [dstfile]'
-    print 'Note: if no radius or radiusBand is sent, the radius will default to the Moon = 1737400.0'
+    print 'Note: Was written for digital elevation files (DEMs), thus band 1 or -band b, should be elevation in meters'
+    print 'Note: if no radius is sent, the radius will default to the Moon = 1737400.0'
+    print 'Note: if variable radius is available as a band, then you can send -radiusBand b'
     print
     sys.exit( 1 )
 
@@ -263,9 +265,16 @@ if __name__ == '__main__':
                    line = format % (float(geo_x),float(geo_y), x_i_data[0])
                else:
                    #print body-fixed coordinates
-                   geoC_x = (theRadius + x_i_data[0]) * math.cos(math.radians(geo_y)) * math.cos(math.radians(geo_x))
-                   geoC_y = (theRadius + x_i_data[0]) * math.cos(math.radians(geo_y)) * math.sin(math.radians(geo_x))
-                   geoC_z = (theRadius + x_i_data[0]) * math.sin(math.radians(geo_y))
+                   if radiusBand_num is not None:
+                       #just use radius as provided for in band
+                       geoC_x = (theRadius) * math.cos(math.radians(geo_y)) * math.cos(math.radians(geo_x))
+                       geoC_y = (theRadius) * math.cos(math.radians(geo_y)) * math.sin(math.radians(geo_x))
+                       geoC_z = (theRadius) * math.sin(math.radians(geo_y))
+                   else:
+                       #radius plus elevation band
+                       geoC_x = (theRadius + x_i_data[0]) * math.cos(math.radians(geo_y)) * math.cos(math.radians(geo_x))
+                       geoC_y = (theRadius + x_i_data[0]) * math.cos(math.radians(geo_y)) * math.sin(math.radians(geo_x))
+                       geoC_z = (theRadius + x_i_data[0]) * math.sin(math.radians(geo_y))
                    line = format % (float(geoC_x),float(geoC_y), float(geoC_z))
                dst_fh.write( line )
 
