@@ -7,10 +7,7 @@ Note: if no radius or radiusBand is sent, the radius will default to the Moon = 
 * -srcwin offsets, width, and height values should be sent in meters
 * -addheader will add a one row with field names
 
-Use one or none for
- * -printLatLon will use GDAL/map projection to calculate Lat/Lon for every pixel
-
-To override lat/lon calculations with values from a band
+To override GDAL lat/lon calculations with values from bands
  * -latBand n
  * -lonBand m
  * -radiusBand r
