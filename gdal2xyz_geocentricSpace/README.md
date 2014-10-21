@@ -1,5 +1,6 @@
 Usage: gdal2xyz_geocentricSpace.py [-skip factor] [-printLatLon] [-addheader] [-srcwin xoff yoff width height]
      [-radius value_m or -radiusBand n] [-latBand n] [-lonBand n] [-band b] srcfile [dstfile]
+
 Note: if no radius or radiusBand is sent, the radius will default to the Moon = 1737400.0
 
 * brackets [ ] indicate optional parameter. If no output file, will write to stdout
