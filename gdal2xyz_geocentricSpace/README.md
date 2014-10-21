@@ -6,11 +6,11 @@ Note: if no radius or radiusBand is sent, the radius will default to the Moon = 
 * defaults to band 1 if nothing is sent (only applicable when using -printLatLon)
 * -srcwin offsets, width, and height values should be sent in meters
 * -addheader will add a one row with field names
+* -radius value_m or -radiusBand r to send custon radius
 
 To override GDAL lat/lon calculations with values from bands
  * -latBand n
  * -lonBand m
- * -radiusBand r
 
 Here are some use cases:
 
