@@ -7,9 +7,9 @@
     <Layers>MDIM21</Layers>
   </Service>
   <DataWindow>
-    <UpperLeftX>290</UpperLeftX>
+    <UpperLeftX>280</UpperLeftX>
     <UpperLeftY>45</UpperLeftY>
-    <LowerRightX>280</LowerRightX>
+    <LowerRightX>290</LowerRightX>
     <LowerRightY>35</LowerRightY>
      <SizeX>1000</SizeX>
      <SizeY>1000</SizeY>
