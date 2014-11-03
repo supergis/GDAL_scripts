@@ -1,4 +1,4 @@
-Simple GDAL coordinate to coordinate tranlsations given an image
+Simple GDAL coordinate to coordinate translations given an image
 ============
 
 Usage: longlat2meters.py long lat inImage
