@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="EN">
+	<head>
+	<style>
+		html,body {
+			height: 95%;
+			width: 95%;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+			border: 1px solid black;
+		}	
+	</style>
+      <!-- <script type="text/javascript" src="http://dev.openlayers.org/releases/OpenLayers-2.13.1/lib/OpenLayers.js"></script> -->
+      <link rel="stylesheet" href="http://astrowebmaps.wr.usgs.gov/webmapatlas/styles/console.css" type="text/css" />
+      <link rel="stylesheet" href="http://astrowebmaps.wr.usgs.gov/webmapatlas/styles/ol.css" type="text/css" />
+      <script type="text/javascript" src="http://astrowebmaps.wr.usgs.gov/webmapatlas/ol/OpenLayers-2.10/OpenLayers.js"></script> 
+      <script type="text/javascript" src="http://astrowebmaps.wr.usgs.gov/webmapatlas/Layers/MARSmaps.js"></script>
+      <script type="text/javascript" src="http://astrowebmaps.wr.usgs.gov/webmapatlas/js/AstroWebMaps.js"></script>
+
+</head>
+	<body>
+		<div id='map'></div>
+		<script type="text/javascript">
+			var map = new OpenLayers.Map('map', { maxExtent: new OpenLayers.Bounds(0, -90, 360, 90) });
+			var wmsURL = [
+				"http://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/earth/moon_simp_cyl.map"
+			];
+           
+			var wms2URL = [
+				"http://wms.wr.usgs.gov/cgi-bin/mapserv?map=/maps/earth/MOON_upc_footprints.map"
+           ];
+
+          var LOLA_color = new OpenLayers.Layer.WMS( 'Astro LOLA_color',wmsURL, {layers: 'LOLA_color', format: 'image/jpeg' }, {wrapDateLine: true, buffer: 1, isBaseLayer: true, visibility: true} );
+			map.addLayer(LOLA_color);
+          var UVVIS = new OpenLayers.Layer.WMS( 'Astro UVVIS version 2',wmsURL, {layers: 'uv_v2', format: 'image/png' }, {wrapDateLine: true, buffer: 1, isBaseLayer: true, visibility: false} );
+			map.addLayer(UVVIS);
+          
+            
+      map.zoomToMaxExtent();
+      var MOON_HIRES_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_HIRES_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_HIRES_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
+      map.addLayer(MOON_HIRES_FOOTPRINTS);
+//      var MOON_NIR_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_NIR_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_NIR_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
+//      map.addLayer(MOON_NIR_FOOTPRINTS);
+//      var MOON_UVVIS_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_UVVIS_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_UVVIS_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
+//      map.addLayer(MOON_UVVIS_FOOTPRINTS);
+
+          map.setCenter(new OpenLayers.LonLat(90, -35), 7);
+          map.addControl(new OpenLayers.Control.MousePosition());
+//
+          map.addControl(new OpenLayers.Control.PanZoomBar());
+          map.addControl(new OpenLayers.Control.MouseToolbar());
+//          map.addControl(new OpenLayers.Control.LayerSwitcher());
+          map.addControl(new OpenLayers.Control.LayerSwitcher({'ascending':true}));
+          map.addControl(new OpenLayers.Control.ScaleLine());
+          map.addControl(new OpenLayers.Control.Permalink('permalink'));
+          map.addControl(new OpenLayers.Control.KeyboardDefaults());
+//         
+        
+           
+       </script>
+	</body>
+</html>
