@@ -22,45 +22,40 @@
       <script type="text/javascript" src="http://astrowebmaps.wr.usgs.gov/webmapatlas/js/AstroWebMaps.js"></script>
 
 </head>
-	<body>
-		<div id='map'></div>
-		<script type="text/javascript">
-			var map = new OpenLayers.Map('map', { maxExtent: new OpenLayers.Bounds(0, -90, 360, 90) });
-			var wmsURL = [
-				"http://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/earth/moon_simp_cyl.map"
-			];
-           
-			var wms2URL = [
-				"http://wms.wr.usgs.gov/cgi-bin/mapserv?map=/maps/earth/MOON_upc_footprints.map"
-           ];
+    <body>
+	<div id='map'></div>
+	<script type="text/javascript">
+	  var map = new OpenLayers.Map('map', { maxExtent: new OpenLayers.Bounds(0, -90, 360, 90) });
+	  var wmsURL = [
+	 	"http://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/earth/moon_simp_cyl.map"
+	  ];
+
+  	  var wms2URL = [
+		"http://wms.wr.usgs.gov/cgi-bin/mapserv?map=/maps/earth/MOON_upc_footprints.map"
+          ];
 
           var LOLA_color = new OpenLayers.Layer.WMS( 'Astro LOLA_color',wmsURL, {layers: 'LOLA_color', format: 'image/jpeg' }, {wrapDateLine: true, buffer: 1, isBaseLayer: true, visibility: true} );
-			map.addLayer(LOLA_color);
+          map.addLayer(LOLA_color);
           var UVVIS = new OpenLayers.Layer.WMS( 'Astro UVVIS version 2',wmsURL, {layers: 'uv_v2', format: 'image/png' }, {wrapDateLine: true, buffer: 1, isBaseLayer: true, visibility: false} );
-			map.addLayer(UVVIS);
-          
+          map.addLayer(UVVIS);
+          var KaguyaTC = new OpenLayers.Layer.WMS( 'JAXA Kaguya TC Ortho Mosaic',wmsURL, {layers: 'KaguyaTC_Ortho', format: 'image/jpeg' }, {wrapDateLine: true, buffer: 1, isBaseLayer: true, visibility: false} );
+          map.addLayer(KaguyaTC);
             
-      map.zoomToMaxExtent();
-      var MOON_HIRES_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_HIRES_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_HIRES_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
-      map.addLayer(MOON_HIRES_FOOTPRINTS);
-//      var MOON_NIR_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_NIR_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_NIR_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
-//      map.addLayer(MOON_NIR_FOOTPRINTS);
-//      var MOON_UVVIS_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_UVVIS_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_UVVIS_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
-//      map.addLayer(MOON_UVVIS_FOOTPRINTS);
+          var MOON_HIRES_FOOTPRINTS = new OpenLayers.Layer.WMS( "MOON_HIRES_FOOTPRINTS", wms2URL, { transparent: 'true', layers: 'MOON_HIRES_FOOTPRINTS', format: 'image/png'} , {wrapDateLine: true, buffer: 1,  visibility: false }  );
+          map.addLayer(MOON_HIRES_FOOTPRINTS);
 
+          //map controls
           map.setCenter(new OpenLayers.LonLat(90, -35), 7);
           map.addControl(new OpenLayers.Control.MousePosition());
-//
           map.addControl(new OpenLayers.Control.PanZoomBar());
           map.addControl(new OpenLayers.Control.MouseToolbar());
-//          map.addControl(new OpenLayers.Control.LayerSwitcher());
           map.addControl(new OpenLayers.Control.LayerSwitcher({'ascending':true}));
           map.addControl(new OpenLayers.Control.ScaleLine());
           map.addControl(new OpenLayers.Control.Permalink('permalink'));
           map.addControl(new OpenLayers.Control.KeyboardDefaults());
-//         
-        
-           
+      
+          map.zoomToMaxExtent();
+
        </script>
-	</body>
+    </body>
 </html>
