@@ -10,4 +10,5 @@ Credits:  Based on C# implementation by winski software or
 
  
  Usage: gdalsize.py -ng 8 infile outfile
+ 
    where -ng is number of gores in output file, based on "interrupted" sinusoidal projection. 
