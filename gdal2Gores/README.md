@@ -9,6 +9,7 @@ Credits:  Based on C# implementation by winski software or
           http://svn.osgeo.org/gdal/trunk/gdal/swig/python/samples/
 
  
- Usage: gdalsize.py -ng 8 infile outfile
+ Usage: gdalsize.py -ng 8 infile outfile.tif
  
    where -ng is number of gores in output file, based on "interrupted" sinusoidal projection. 
+   Currently defaults to Tiff as output. Output size, bands, and type will be same as input image.
