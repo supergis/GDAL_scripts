@@ -142,7 +142,7 @@ for band in range (1, in_dataset.RasterCount + 1):
          goreStart = goreStart + goreWidth
          goreCenter =  goreCenter + goreWidth
 
-      #write out scanline one band at a time
+      #write out scanline for the current band
       out_array = np.asarray([dstline])
       outband.WriteArray(out_array, 0, y)
 
