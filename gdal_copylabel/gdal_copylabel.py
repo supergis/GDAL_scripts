@@ -51,7 +51,7 @@ def Usage():
     print('Usage: gdal_copylabel.py [-of format] [-shiftX pixels] [-shiftY pixels (neg)] infile copyfile outfile')
     print('')
     print('Example:')
-    print('gdal_copylabel.py -of vrt -shiftX 1 -shiftY -1 adir_DEM_1m_InSightE08_E_isis2_02_02_ang.cub DEM_1m_InSightE08_E_isis3.cub adir_DEM_1m_InSightE08_E_isis2_02_02_ang.vrt')
+    print('gdal_copylabel.py -of vrt -shiftX 0.5 -shiftY -0.5 adir_DEM_1m_InSightE08_E_isis2_02_02_ang.cub DEM_1m_InSightE08_E_isis3.cub adir_DEM_1m_InSightE08_E_isis2_02_02_ang.vrt')
     print('')
     sys.exit( 1 )
 
