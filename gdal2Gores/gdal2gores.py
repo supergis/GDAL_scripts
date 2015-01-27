@@ -134,15 +134,16 @@ for band in range (1, in_dataset.RasterCount + 1):
          for x in range(goreWidth):
             dn = inline[0, goreStart + x]
             # set new position for pixel value in output array
-            newX = int(goreCenter + math.cos((-math.pi/2.0) + (math.pi * float(y) / float(iBand.YSize))) \
-                       * (x - (goreWidth / 2.0)))
+            # updated with round to increase overlap at gore edge
+            newX = int(round(goreCenter + math.cos((-math.pi/2.0) + (math.pi * float(y) / float(iBand.YSize))) \
+                       * (x - (goreWidth / 2.0))))
             dstline[newX] = dn
  
          # move start and center to the correct places
          goreStart = goreStart + goreWidth
          goreCenter =  goreCenter + goreWidth
 
-      #write out scanline one band at a time
+      #write out scanline for the current band
       out_array = np.asarray([dstline])
       outband.WriteArray(out_array, 0, y)
 
